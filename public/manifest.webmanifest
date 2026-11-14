@@ -1,1 +1,12 @@
-
+{
+  "name": "PLAYER SYSTEM",
+  "short_name": "Player System",
+  "description": "Il tuo sistema personale di crescita e progressione.",
+  "lang": "it",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#06101f",
+  "theme_color": "#071426"
+}
