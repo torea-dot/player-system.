@@ -1,22 +1,85 @@
 <!doctype html>
-<html lang="en">
+<html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>My App</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071426">
+<title>PLAYER SYSTEM</title>
+<link rel="manifest" href="manifest.webmanifest">
 <style>
-  html,body{height:100%;margin:0}
-  body{display:flex;align-items:center;justify-content:center;background:#0f1115;color:#e8e8ea;
-       font:16px/1.5 system-ui,sans-serif;padding:24px;box-sizing:border-box;text-align:center}
-  main{max-width:30rem}
-  h1{font-size:1.4rem;margin:0 0 .5rem}
-  p{margin:0;opacity:.75}
+:root{--bg:#06101f;--panel:#0b1d33;--panel2:#102844;--line:#1d5681;--blue:#51c7ff;--cyan:#9be8ff;--muted:#89a9c3;--white:#eaf8ff;--green:#73f0bd;--gold:#ffd36c}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#12416b 0,#071426 48%,#030914 100%);color:var(--white);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+.wrap{max-width:900px;margin:auto;padding:20px 16px 48px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.brand{letter-spacing:.24em;font-size:12px;color:var(--cyan);font-weight:800}.online{font-size:11px;color:var(--green);border:1px solid #287a70;padding:5px 9px;border-radius:30px;letter-spacing:.12em}
+h1{font-size:clamp(26px,6vw,42px);letter-spacing:.12em;margin:4px 0;color:#d9f5ff;text-shadow:0 0 18px #42bfff88}h2{font-size:16px;letter-spacing:.12em;color:var(--cyan);margin:0 0 14px}.sub{color:var(--muted);font-size:13px}
+.panel{background:linear-gradient(145deg,#0d2440eF,#08172beF);border:1px solid #1c5278;border-radius:15px;padding:17px;box-shadow:0 0 24px #1c9ee51c,inset 0 0 24px #248bc00b;margin-bottom:14px;position:relative;overflow:hidden}
+.panel:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 25%,#8de6ff08 50%,transparent 75%)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.level{font-size:34px;font-weight:800;color:var(--blue);line-height:1.1}.rank{font-size:11px;letter-spacing:.2em;color:var(--gold);margin-top:8px}
+.xphead{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin:16px 0 7px}.bar{height:9px;background:#193650;border-radius:20px;overflow:hidden;border:1px solid #285475}.fill{height:100%;width:0;background:linear-gradient(90deg,#1d8dff,#80e9ff);box-shadow:0 0 12px #51c7ff;transition:width .3s}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.stat{padding:12px;border:1px solid #1b4567;background:#0a1b30;border-radius:10px}.stat span{display:block;color:var(--muted);font-size:10px;letter-spacing:.13em}.stat b{display:block;font-size:24px;color:var(--blue);margin-top:3px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.quest{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-bottom:1px solid #1a3b58}.quest:last-child{border:0;padding-bottom:0}.quest input{accent-color:#55cfff;width:19px;height:19px;margin-top:2px;flex-shrink:0}.quest label{flex:1}.quest strong{display:block;font-size:14px}.quest small{color:var(--muted)}.xp{color:var(--green);font-size:11px;white-space:nowrap}
+button{border:1px solid #3c9bc8;background:linear-gradient(180deg,#12446b,#0b2b49);color:#e9faff;border-radius:9px;padding:10px 13px;font-weight:700;cursor:pointer}button:active{transform:scale(.98)}button.secondary{background:#0a1a2c;border-color:#284d6c;color:#a9c9df}button:disabled{opacity:.4;cursor:not-allowed}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.field{width:100%;background:#07182a;border:1px solid #285475;color:var(--white);border-radius:8px;padding:11px;font:inherit;margin:5px 0 10px}.formrow{display:grid;grid-template-columns:1fr 100px;gap:8px}.hint{font-size:12px;color:var(--muted);margin-top:10px}.empty{color:var(--muted);font-size:13px;padding:8px 0}.footer{text-align:center;color:#65849e;font-size:11px;margin-top:22px;letter-spacing:.08em}
+@media(max-width:620px){.hero,.grid2{grid-template-columns:1fr}.stats{grid-template-columns:repeat(4,1fr)}.stat{padding:9px 7px}.stat b{font-size:20px}.wrap{padding:16px 12px 36px}}
 </style>
 </head>
 <body>
-<main>
-  <h1>My App</h1>
-  <p>Replace this page with your own website files in the <b>public</b> folder, or fill in the <b>url</b> field when you run the build.</p>
+<main class="wrap">
+ <div class="top"><div class="brand">SYSTEM INTERFACE // v0.1</div><div class="online">● ONLINE</div></div>
+ <h1>PLAYER STATUS</h1><div class="sub" id="today"></div>
+ <section class="hero">
+  <div class="panel">
+   <div class="sub">IDENTITÀ PLAYER</div><div class="level" id="level">LIVELLO 1</div><div class="rank" id="rank">RANGO E</div>
+   <div class="xphead"><span>ESPERIENZA</span><b id="xptext">0 / 100 XP</b></div><div class="bar"><div class="fill" id="xpbar"></div></div>
+   <div class="hint">Completa le missioni per ottenere EXP e salire di livello.</div>
+  </div>
+  <div class="panel"><h2>ATTRIBUTI</h2><div class="stats" id="stats"></div></div>
+ </section>
+ <div class="grid2">
+  <section class="panel"><h2>MISSIONI GIORNALIERE</h2><div id="quests"></div>
+   <div class="actions"><button id="resetDay" class="secondary">Nuovo giorno</button></div>
+   <div class="hint">Le missioni sono obiettivi equilibrati: adattale alle tue giornate e recupera quando serve.</div>
+  </section>
+  <section class="panel"><h2>NUOVA MISSIONE</h2>
+   <label class="sub" for="task">Nome missione</label><input class="field" id="task" maxlength="48" placeholder="Es. Ripassare inglese">
+   <div class="formrow"><div><label class="sub" for="category">Categoria</label><select class="field" id="category"><option value="studio">Studio</option><option value="fitness">Fitness</option><option value="abitudini">Abitudini</option></select></div><div><label class="sub" for="reward">EXP</label><select class="field" id="reward"><option>10</option><option>20</option><option>30</option><option>50</option></select></div></div>
+   <button id="add">＋ Aggiungi missione</button><div class="hint">EXP assegnata una sola volta per missione completata.</div>
+  </section>
+ </div>
+ <section class="panel"><h2>REGISTRO PLAYER</h2><div id="log" class="empty">Nessuna missione completata oggi.</div><div class="actions"><button class="secondary" id="resetAll">Azzera progressi</button></div></section>
+ <div class="footer">PLAYER SYSTEM · PROTOTIPO PERSONALE · I DATI RESTANO SU QUESTO DISPOSITIVO</div>
 </main>
-</body>
-</html>
+<script>
+const defaults=[
+ {id:"gym",name:"Allenamento o movimento",cat:"fitness",xp:20,done:false},
+ {id:"study",name:"Studio / ripasso",cat:"studio",xp:20,done:false},
+ {id:"read",name:"Lettura per 15 minuti",cat:"studio",xp:10,done:false},
+ {id:"habit",name:"Completa una buona abitudine",cat:"abitudini",xp:10,done:false}
+];
+const key="player-system-v01";
+let state;
+function fresh(){return {date:new Date().toLocaleDateString("it-IT"),xp:0,level:1,quests:structuredClone(defaults),log:[],stats:{fitness:0,studio:0,abitudini:0}}}
+function load(){try{state=JSON.parse(localStorage.getItem(key))||fresh()}catch(e){state=fresh()}if(state.date!==new Date().toLocaleDateString("it-IT")){state.date=new Date().toLocaleDateString("it-IT");state.quests=state.quests.map(q=>({...q,done:false}));state.log=[]}save()}
+function save(){localStorage.setItem(key,JSON.stringify(state))}
+function rank(l){return l>=20?"RANGO S":l>=15?"RANGO A":l>=10?"RANGO B":l>=6?"RANGO C":l>=3?"RANGO D":"RANGO E"}
+function render(){
+ const next=state.level*100, into=state.xp%100;
+ document.getElementById("level").textContent="LIVELLO "+state.level;
+ document.getElementById("rank").textContent=rank(state.level);
+ document.getElementById("xptext").textContent=into+" / 100 XP";
+ document.getElementById("xpbar").style.width=into+"%";
+ document.getElementById("today").textContent="DATA: "+state.date+" · IL TUO PERCORSO, LE TUE REGOLE";
+ const labels=[["fitness","FORZA"],["studio","MENTE"],["abitudini","DISCIPLINA"],["total","MISSIONI"]];
+ document.getElementById("stats").innerHTML=labels.map(([k,n])=>`<div class="stat"><span>${n}</span><b>${k==="total"?state.log.length:(state.stats[k]||0)}</b></div>`).join("");
+ document.getElementById("quests").innerHTML=state.quests.length?state.quests.map(q=>`<div class="quest"><input type="checkbox" id="q-${q.id}" ${q.done?"checked":""} ${q.done?"disabled":""}><label for="q-${q.id}"><strong>${escapeHtml(q.name)}</strong><small>${q.cat==="fitness"?"Fitness":q.cat==="studio"?"Studio":"Abitudini"}</small></label><span class="xp">+${q.xp} EXP</span></div>`).join(""):'<div class="empty">Nessuna missione. Aggiungine una.</div>';
+ state.quests.forEach(q=>{const el=document.getElementById("q-"+q.id);if(el)el.addEventListener("change",()=>complete(q.id))});
+ document.getElementById("log").innerHTML=state.log.length?state.log.slice().reverse().map(x=>`<div class="quest"><div style="flex:1"><strong>${escapeHtml(x.name)}</strong><small>${x.time}</small></div><span class="xp">+${x.xp} EXP</span></div>`).join(""):"Nessuna missione completata oggi.";
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function complete(id){const q=state.quests.find(x=>x.id===id);if(!q||q.done)return;q.done=true;state.xp+=q.xp;state.stats[q.cat]=(state.stats[q.cat]||0)+1;state.log.push({name:q.name,xp:q.xp,time:new Date().toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"})});while(state.xp>=state.level*100)state.level++;save();render()}
+document.getElementById("add").onclick=()=>{const name=document.getElementById("task").value.trim();if(!name){document.getElementById("task").focus();return}state.quests.push({id:"q"+Date.now(),name,cat:document.getElementById("category").value,xp:Number(document.getElementById("reward").value),done:false});document.getElementById("task").value="";save();render()};
+document.getElementById("resetDay").onclick=()=>{if(!confirm("Vuoi riaprire tutte le missioni di oggi? Gli EXP già guadagnati restano."))return;state.quests=state.quests.map(q=>({...q,done:false}));state.log=[];save();render()};
+document.getElementById("resetAll").onclick=()=>{if(!confirm("Vuoi davvero azzerare livello, EXP e statistiche?"))return;state=fresh();save();render()};
+load();render();
+if("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body></html>
