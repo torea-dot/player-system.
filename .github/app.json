@@ -1,0 +1,18 @@
+
+{
+  "appName": "PLAYER SYSTEM",
+  "appId": "com.playersystem.app",
+  "versionName": "1.1.0",
+  "versionCode": 2,
+  "apkName": "PlayerSystem",
+  "url": "",
+  "webDir": "public",
+  "androidScheme": "https",
+  "allowCleartext": true,
+  "allowNavigation": ["127.0.0.1", "localhost", "10.0.2.2"],
+  "permissions": [],
+  "orientation": "portrait",
+  "backgroundColor": "#06101f",
+  "splashColor": "#06101f",
+  "offlinePage": true
+}
